@@ -103,9 +103,9 @@ is: alpha and scale first, shrink or expand, then slide. The same applies to exi
             enterTransition = { fadeIn() },
             exitTransition = { fadeOut() }
             // If not explicity defined, pop transitions are the same as enter and exit transition
-        ) { Screen("Screen A", backgroundColor = Color.Red) }
-        composable(route = Screens.ScreenB.route) { Screen("Screen B", backgroundColor = Color.Yellow) }
-        composable(route = Screens.ScreenC.route) { Screen("Screen C", backgroundColor = Color.Green) }
+        ) { Screen("Screen A") }
+        composable(route = Screens.ScreenB.route) { Screen("Screen B") }
+        composable(route = Screens.ScreenC.route) { Screen("Screen C") }
     }
 ```
 
