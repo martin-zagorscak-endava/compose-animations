@@ -14,6 +14,14 @@
 
 ## Motivation
 
+Animations can make your app more **engaging**, **interactive**, and **visually appealing**. They can also help to
+improve the user experience by providing feedback and making transitions between screens smoother. Jetpack Compose makes
+it easy to implement the animations into the app with just a few lines of code, even if you are new to animations.
+
+This document covers basic common animations (shown in the cheat sheet) and also a little more complex cases which
+are common or could appear in our projects. Hopefully, with its simplicity, this document will engage you to implement
+animations in your project.
+
 ## Compose animations cheat sheet
 
 ![compose_animation_cheat_sheet.png](images%2Fcompose_cheat_sheet.png)
