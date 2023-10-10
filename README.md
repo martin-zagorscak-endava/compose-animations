@@ -6,7 +6,6 @@
   * [Motivation](#motivation)
   * [Compose animations cheat sheet](#compose-animations-cheat-sheet)
   * [NavHost transitions between screens](#navhost-transitions-between-screens)
-  * [Item placement animations (lists and grids)](#item-placement-animations-lists-and-grids)
   * [Motion layout](#motion-layout)
   * [Shared elements transition](#shared-elements-transition)
   * [Guidelines](#guidelines)
@@ -88,19 +87,19 @@ is: alpha and scale first, shrink or expand, then slide. The same applies to exi
         exitTransition = {
             slideOutOfContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                animationSpec = tween(700)
+                animationSpec = tween(durationMillis = 700)
             )
         },
         popEnterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                animationSpec = tween(700)
+                animationSpec = tween(durationMillis = 700)
             )
         },
         popExitTransition = {
             slideOutOfContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                animationSpec = tween(700)
+                animationSpec = tween(durationMillis = 700)
             )
         }
     ) {
@@ -116,8 +115,6 @@ is: alpha and scale first, shrink or expand, then slide. The same applies to exi
         composable(route = Screens.ScreenC.route) { Screen("Screen C") }
     }
 ```
-
-## Item placement animations (lists and grids)
 
 ## Motion layout
 
