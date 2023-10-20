@@ -3,16 +3,18 @@
 <h2>Table of contents</h2>
 
 <!-- TOC -->
-  * [Motivation](#motivation)
-  * [Compose animations cheat sheet](#compose-animations-cheat-sheet)
-  * [NavHost transitions between screens](#navhost-transitions-between-screens)
-  * [Motion layout](#motion-layout)
-  * [Shared elements transition](#shared-elements-transition)
-  * [Guidelines](#guidelines)
+
+* [Motivation](#motivation)
+* [Compose animations cheat sheet](#compose-animations-cheat-sheet)
+* [NavHost transitions between screens](#navhost-transitions-between-screens)
+* [Motion layout](#motion-layout)
+* [Shared elements transition](#shared-elements-transition)
+* [Guidelines](#guidelines)
     * [Duration](#duration)
     * [Easing](#easing)
     * [Transformation](#transformation)
     * [Transition patterns](#transition-patterns)
+
 <!-- TOC -->
 
 ## Motivation
@@ -124,8 +126,8 @@ NavHost(
 
 ## Shared elements transition
 
-<img style="border-radius:5%" src ="./images/shared-elements-transition-demo.gif" alt="Shared elements transition"/>
-<img style="border-radius:5%" src ="./images/shared-elements-transition-demo1.gif" alt="Shared elements transition"/>
+![shared-elements-transition-demo.gif](images%2Fshared-elements-transition-demo.gif)
+![shared-elements-transition-demo1.gif](images%2Fshared-elements-transition-demo1.gif)
 
 `TODO: Shared element transitions are currently in development`
 
@@ -144,12 +146,7 @@ possibility to notice the change, but at the same time quick enough not to cause
 speed is not appropriate it will result with poor UX, which counters your idea to improve the existing app. To achieve
 better UX, choosing the right combination of duration and easing will produce with smooth and responsive transitions.
 
-<figure style="text-align:center">
-    <img style="border-radius:2%" src ="./images/durations.gif" width="1000" alt=""/>
-    <figcaption>
-      Suggested durations
-    </figcaption>
-</figure>
+![durations.gif](images%2Fdurations.gif)
 
 [Numerous researches](https://valhead.com/2016/05/05/how-fast-should-your-ui-animations-be/) have discovered that
 optimal speed for interface animation is between 200 and 500 ms. These figures
@@ -163,22 +160,11 @@ suggests limiting the duration of animation to 200–300 ms. As for tablets, the
 position. On wearables, the duration should be accordingly 30% shorter — around 150–200 ms, because on a smaller screen
 the distance to travel is shorter.
 
-<div style="display:flex; justify-content:start">
-  <figure>
-    <img style="border-radius:5%" width="400" src ="./images/example_smooth_transition.gif" alt=""/>
-    <figcaption>
-      <b style="color:green">Do: </b>A transition with a well tuned duration is quick and easy to follow
-    </figcaption>
-  </figure>
+**Do:** A transition with a well tuned duration is quick and easy to follow
+![example_smooth_transition.gif](images%2Fexample_smooth_transition.gif)
 
-  <figure>
-    <img style="border-radius:5%" width="400" src ="./images/example_too_fast_transition.gif" alt=""/>
-    <figcaption>
-      <b style="color:red">Don't: </b>A transition with a well tuned duration is quick and easy to follow
-    </figcaption>
-  </figure>
-</div>
-
+**Don't:** A transition with a well tuned duration is quick and easy to follow
+![example_too_fast_transition.gif](images%2Fexample_too_fast_transition.gif)
 
 **Durations are chosen based on these criteria:**
 
@@ -187,21 +173,11 @@ the distance to travel is shorter.
 Transitions that cover small areas of the screen have short durations, while large areas have long durations. Scaling
 duration with the size of a transition gives a consistent sense of speed.
 
-<div style="display:flex; justify-content:start">
-  <figure>
-    <img style="border-radius:5%" width="400" src ="./images/example_small_area_transition.gif" alt=""/>
-    <figcaption>
-      This transition covers a small area with a short 200ms duration
-    </figcaption>
-  </figure>
+This transition covers a small area with a short 200ms duration:
+![example_small_area_transition.gif](images%2Fexample_small_area_transition.gif)
 
-  <figure>
-    <img style="border-radius:5%" width="400" src ="./images/example_large_area_transition.gif" alt=""/>
-    <figcaption>
-      This transition covers a large area with a short 500ms duration
-    </figcaption>
-  </figure>
-</div>
+This transition covers a large area with a short 500ms duration:
+![example_large_area_transition.gif](images%2Fexample_large_area_transition.gif)
 
 **Enter vs exit transitions**
 
@@ -211,13 +187,10 @@ they require less attention than the user's next task.
 **Transitions that enter** or remain persistent on the screen **use longer durations**. This helps users focus attention
 on what's new on the screen.
 
-<figure>
-    <img style="border-radius:2%" src ="./images/example_enter_exit_transition.gif" alt=""/>
-    <figcaption>
-      <b>1)</b> An Enter transition has a long duration of 500ms<br>
-      <b>2)</b> An Exit transition has a short duration of 200ms
-    </figcaption>
-</figure>
+![example_enter_exit_transition.gif](images%2Fexample_enter_exit_transition.gif)
+
+**1)** An Enter transition has a long duration of 500ms<br>
+**2)** An Exit transition has a short duration of 200ms
 
 ### Easing
 
@@ -226,69 +199,28 @@ the animation not to look mechanical and artificial, the object should move with
 just like all live objects in the physical world. So it is suggested to avoid linear motion and use the more natural
 ones.
 
-<figure style="text-align:center">
-    <img style="border-radius:2%" src ="./images/easing_vs_no_easing.gif" width="700" alt=""/>
-    <figcaption>
-      Animation with easing looks more natural compared to the linear one
-    </figcaption>
-</figure>
+Animation with easing looks more natural compared to the linear one
+![easing_vs_no_easing.gif](images%2Feasing_vs_no_easing.gif)
 
 There are different types of motion of UI elements, but the most common ones are:
 
-<div style="display:flex; justify-content:center">
-  <figure>
-    <img style="border-radius:5%" src ="./images/linear_motion.gif" alt=""/>
-    <figcaption>
-      Linear motion or constant speed motion
-    </figcaption>
-  </figure>
-
-  <figure>
-    <img style="border-radius:5%" src ="images/ease_in_motion.gif" alt=""/>
-    <figcaption>
-      Ease-in or acceleration motion
-    </figcaption>
-  </figure>
-
-  <figure>
-    <img style="border-radius:5%" src ="images/ease_out_motion.gif" alt=""/>
-    <figcaption>
-      Ease-out or deceleration motion
-    </figcaption>
-  </figure>
-
-  <figure>
-    <img style="border-radius:5%" src ="images/ease_in_out_motion.gif" alt=""/>
-    <figcaption>
-      Ease-in-out or standard motion
-    </figcaption>
-  </figure>
-</div>
+- **Linear motion or constant speed motion**
+  ![linear_motion.gif](images%2Flinear_motion.gif)
+- **Ease-in or acceleration motion**
+  ![ease_in_motion.gif](images%2Fease_in_motion.gif) 
+- **Ease-out or deceleration motion**
+  ![ease_out_motion.gif](images%2Fease_out_motion.gif) 
+- **Ease-in-out or standard motion**
+  ![ease_in_out_motion.gif](images%2Fease_in_out_motion.gif)
 
 Real mobile examples when using ease motions:
 
-<div style="display:flex; justify-content:center">
-  <figure>
-    <img style="border-radius:5%" src ="./images/ease_in_example.gif" alt=""/>
-    <figcaption>
-      Acceleration curve for throwing the card out of the screen
-    </figcaption>
-  </figure>
-
-  <figure>
-    <img style="border-radius:5%" src ="images/ease_out_example.gif" alt=""/>
-    <figcaption>
-      Deceleration curve for a nice show-up
-    </figcaption>
-  </figure>
-
-  <figure>
-    <img style="border-radius:5%" src ="images/ease_in_out_example.gif" alt=""/>
-    <figcaption>
-      The navigation drawer hides from the screen with the standard curve
-    </figcaption>
-  </figure>
-</div>
+- **Acceleration curve for throwing the card out of the screen**
+  ![ease_in_example.gif](images%2Fease_in_example.gif)
+- **Deceleration curve for a nice show-up**
+  ![ease_out_example.gif](images%2Fease_out_example.gif)
+- **The navigation drawer hides from the screen with the standard curve**
+  ![ease_in_out_example.gif](images%2Fease_in_out_example.gif)
 
 ### Transformation
 
