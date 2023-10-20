@@ -3,24 +3,22 @@
 <h2>Table of contents</h2>
 
 <!-- TOC -->
-
-* [Motivation](#motivation)
-* [Compose animations cheat sheet](#compose-animations-cheat-sheet)
-* [NavHost transitions between screens](#navhost-transitions-between-screens)
-* [Motion layout](#motion-layout)
-* [Shared elements transition](#shared-elements-transition)
-* [Guidelines](#guidelines)
+  * [Motivation](#motivation)
+  * [Compose animations cheat sheet](#compose-animations-cheat-sheet)
+  * [NavHost transitions between screens](#navhost-transitions-between-screens)
+  * [Motion layout](#motion-layout)
+  * [Shared elements transition](#shared-elements-transition)
+  * [Guidelines](#guidelines)
     * [Duration](#duration)
     * [Easing](#easing)
     * [What makes a good transition?](#what-makes-a-good-transition)
     * [Transition patterns](#transition-patterns)
-        * [Container transform](#container-transform)
-        * [Forward and backward](#forward-and-backward)
-        * [Lateral](#lateral)
-        * [Top level](#top-level)
-        * [Enter and exit](#enter-and-exit)
-        * [Skeleton loaders](#skeleton-loaders)
-
+      * [Container transform](#container-transform)
+      * [Forward and backward](#forward-and-backward)
+      * [Lateral](#lateral)
+      * [Top level](#top-level)
+      * [Enter and exit](#enter-and-exit)
+      * [Skeleton loaders](#skeleton-loaders)
 <!-- TOC -->
 
 ## Motivation
@@ -240,16 +238,16 @@ A well-designed transition should follow these rules:
 - Use **stable layouts** to avoid unnecessary distractions. Skeleton loaders are a great solution, it
   keeps UI elements coherent and stable during a transition. Avoid content shifting positions or instantly popping in as
   it loads. It can be distracting and frustrating to use.
-- Have a unified direction of movement. Elements are grouped and move along a primary axis instead of moving in
+- **Have a unified direction of movement**. Elements are grouped and move along a primary axis instead of moving in
   independent directions. Only important elements like hero images remain persistent throughout the transition.
-- Fully fade out content before fading new content in. This avoids the overlap of partially transparent elements
+- **Fully fade out content before fading new content in**. This avoids the overlap of partially transparent elements
   resulting in distracting and messy frames. If a cross-fade needs to occur, keep it quick and hide it during the
   fastest part of the transition.
-- Don't slowly fade components on top of other content as they enter or exit. This creates distracting cross-faded
+- **Don't slowly fade components on top of other content as they enter or exit**. This creates distracting cross-faded
   frames. If a fade is needed, like with a Dialog entering the middle of the screen, the fade should use a short
   duration to hide that part of the transition.
-- Keep the motion style simple. Transitions are not receptive to highly stylized motion. They're frequent, often occupy
-  large portions of the screen, and are primarily meant to help users accomplish a task.
+- **Keep the style of the motion simple**. Transitions are not receptive to highly stylized motion. They're frequent,
+  often occupy large portions of the screen, and are primarily meant to help users accomplish a task.
 
 **Jump cuts should generally be avoided** as a default setting since they can be disorienting. Instantly transitioning
 from one screen to the next offers no clues to help a user orient themselves. If pure efficiency is a top priority, like
@@ -351,7 +349,7 @@ Commonly used with: **App bars**, **banners**, **navigation bar**, **navigation 
 **sheets**
 
 **Note:** Don't use this pattern for navigating hierarchical screens. Sliding content the full height of the screen is
-excessive and it creates an unclear relationship between screens.
+excessive, and it creates an unclear relationship between screens.
 
 ![enter_and_exit_beyond_screen_bounds.gif](images%2Fenter_and_exit_beyond_screen_bounds.gif)
 
