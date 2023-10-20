@@ -12,8 +12,14 @@
 * [Guidelines](#guidelines)
     * [Duration](#duration)
     * [Easing](#easing)
-    * [Transformation](#transformation)
+    * [What makes a good transition?](#what-makes-a-good-transition)
     * [Transition patterns](#transition-patterns)
+        * [Container transform](#container-transform)
+        * [Forward and backward](#forward-and-backward)
+        * [Lateral](#lateral)
+        * [Top level](#top-level)
+        * [Enter and exit](#enter-and-exit)
+        * [Skeleton loaders](#skeleton-loaders)
 
 <!-- TOC -->
 
@@ -160,10 +166,10 @@ suggests limiting the duration of animation to 200–300 ms. As for tablets, the
 position. On wearables, the duration should be accordingly 30% shorter — around 150–200 ms, because on a smaller screen
 the distance to travel is shorter.
 
-**Do:** A transition with a well tuned duration is quick and easy to follow
+**Do:** A transition with a well tuned duration is quick and easy to follow <br>
 ![example_smooth_transition.gif](images%2Fexample_smooth_transition.gif)
 
-**Don't:** A transition with a well tuned duration is quick and easy to follow
+**Don't:** A transition with a well tuned duration is quick and easy to follow <br>
 ![example_too_fast_transition.gif](images%2Fexample_too_fast_transition.gif)
 
 **Durations are chosen based on these criteria:**
@@ -173,10 +179,10 @@ the distance to travel is shorter.
 Transitions that cover small areas of the screen have short durations, while large areas have long durations. Scaling
 duration with the size of a transition gives a consistent sense of speed.
 
-This transition covers a small area with a short 200ms duration:
+This transition covers a small area with a short 200ms duration:<br>
 ![example_small_area_transition.gif](images%2Fexample_small_area_transition.gif)
 
-This transition covers a large area with a short 500ms duration:
+This transition covers a large area with a short 500ms duration:<br>
 ![example_large_area_transition.gif](images%2Fexample_large_area_transition.gif)
 
 **Enter vs exit transitions**
@@ -199,7 +205,7 @@ the animation not to look mechanical and artificial, the object should move with
 just like all live objects in the physical world. So it is suggested to avoid linear motion and use the more natural
 ones.
 
-Animation with easing looks more natural compared to the linear one
+Animation with easing looks more natural compared to the linear one<br>
 ![easing_vs_no_easing.gif](images%2Feasing_vs_no_easing.gif)
 
 There are different types of motion of UI elements, but the most common ones are:
@@ -207,9 +213,9 @@ There are different types of motion of UI elements, but the most common ones are
 - **Linear motion or constant speed motion**
   ![linear_motion.gif](images%2Flinear_motion.gif)
 - **Ease-in or acceleration motion**
-  ![ease_in_motion.gif](images%2Fease_in_motion.gif) 
+  ![ease_in_motion.gif](images%2Fease_in_motion.gif)
 - **Ease-out or deceleration motion**
-  ![ease_out_motion.gif](images%2Fease_out_motion.gif) 
+  ![ease_out_motion.gif](images%2Fease_out_motion.gif)
 - **Ease-in-out or standard motion**
   ![ease_in_out_motion.gif](images%2Fease_in_out_motion.gif)
 
@@ -222,21 +228,141 @@ Real mobile examples when using ease motions:
 - **The navigation drawer hides from the screen with the standard curve**
   ![ease_in_out_example.gif](images%2Fease_in_out_example.gif)
 
-### Transformation
+### What makes a good transition?
 
-https://m2.material.io/design/motion/choreography.html#transformation
+A well-designed transition should follow these rules:
+
+- **Have an accessibility setting** which helps users with a sensitivity to motion. When that setting is on, transitions
+  should **use subtle fades instead of intense sliding or scaling animations** and **disable decorative effects like
+  parallax or shape morphing**.
+- Transition should be **consistent**, applying the right type of transition helps make apps feel cohesive and
+  predictable to use.
+- Use **stable layouts** to avoid unnecessary distractions. Skeleton loaders are a great solution, it
+  keeps UI elements coherent and stable during a transition. Avoid content shifting positions or instantly popping in as
+  it loads. It can be distracting and frustrating to use.
+- Have a unified direction of movement. Elements are grouped and move along a primary axis instead of moving in
+  independent directions. Only important elements like hero images remain persistent throughout the transition.
+- Fully fade out content before fading new content in. This avoids the overlap of partially transparent elements
+  resulting in distracting and messy frames. If a cross-fade needs to occur, keep it quick and hide it during the
+  fastest part of the transition.
+- Don't slowly fade components on top of other content as they enter or exit. This creates distracting cross-faded
+  frames. If a fade is needed, like with a Dialog entering the middle of the screen, the fade should use a short
+  duration to hide that part of the transition.
+- Keep the motion style simple. Transitions are not receptive to highly stylized motion. They're frequent, often occupy
+  large portions of the screen, and are primarily meant to help users accomplish a task.
+
+**Jump cuts should generally be avoided** as a default setting since they can be disorienting. Instantly transitioning
+from one screen to the next offers no clues to help a user orient themselves. If pure efficiency is a top priority, like
+opening a menu in a productivity app, a jump cut may be preferred.
 
 ### Transition patterns
 
-https://m3.material.io/styles/motion/transitions/transition-patterns
+Transitions are short animations that connect individual elements or full-screen views of an app. They are fundamental
+to a great user experience because they help users understand how an app works. Well-designed transitions make an
+experience feel high quality and expressive. They should be the top priority for a strong motion implementation.
 
-- Container transform
-- Forward and backward
-- Lateral
-- Top level
-- Enter and exit
-- Skeleton loaders
+#### Container transform
 
-https://m2.material.io/design/motion/understanding-motion.html#principles
-https://m3.material.io/styles/motion/overview
-https://uxdesign.cc/the-ultimate-guide-to-proper-use-of-animation-in-ux-10bd98614fa9
+This pattern is used to seamlessly transform an element to show more detail, like a card expanding into a details page.
+
+Commonly used with: **Cards**, **lists**, **image galleries**, **search boxes**, **sheets**, **FABs** and **chips**
+
+Persistent elements are used to seamlessly connect the start and end state of the transition. The most common persistent
+element is a container, which is a shape used to represent an enclosed area. It can also be an important element, like a
+hero image. Of all transition patterns, this one creates the strongest relationship between elements. It's also
+perceived to be the most expressive. This pattern is highly effective at creating a relationship between elements. It's
+also the most dramatic pattern in terms of style and should be reserved for the right context. Consider using it for:
+
+- Hero moments that should be expressive
+- Shallow hierarchies where you expand an element for more detail then collapse it
+- Creating a seamless connection between elements
+
+**Note:** Don't use container transform in apps with deep hierarchies, the motion becomes excessive. The expressive
+style also doesn't fit this utility focused navigation.
+
+![container_transform.gif](images%2Fcontainer_transform.gif)
+
+#### Forward and backward
+
+This pattern is used for navigating between screens at consecutive levels of hierarchy, like navigating from an inbox to
+a message thread.
+
+Commonly used with: **Lists**, **cards**, **buttons**, **links**
+
+A horizontal sliding motion indicates moving forward or backward between screens. Android uses a fade as screens slide.
+This reduces the amount of motion, since the screens don't have to slide the full width of the device.
+
+![forward_and_backward_transition.gif](images%2Fforward_and_backward_transition.gif)
+
+#### Lateral
+
+This pattern is used for navigating between peer content at the same level of hierarchy, like swiping between tabs of a
+content library.
+
+Commonly used with: **Tabs**, **carousels**, and **image galleries**
+
+Lateral transitions use a sliding motion similar to a forward and backward pattern, but it does not use a fade or
+parallax effect. Instead elements are grouped and slide in unison, creating a strong peer relationship. This also hints
+at being able to gesturally swipe elements to navigate.
+
+**Note:** Don't use a Lateral transition for navigating hierarchical screens. Sliding content the full width of the
+screen is excessive for a high frequency transition. It also implies an equal peer relationship which isn't accurate to
+the hierarchy of the screens.
+
+![lateral_transition.gif](images%2Flateral_transition.gif)
+
+#### Top level
+
+This pattern is used to navigate between top-level destinations of an app, like tapping a destination in a Navigation
+bar.
+
+Commonly used with: **Navigation bar**, **navigation rail**, and **navigation drawer**
+
+The exiting screen quickly fades out and then the entering screen fades in. Since the content of top level destinations
+isn't necessarily related, the motion intentionally does not use grouping or persistent elements to create a strong
+relationship between screens.
+
+**Note:** Don't use a lateral transition to move between top level destinations. It implies you can swipe between top
+level destinations which can conflict with other components like carousels or swipe-able list items.
+
+![top_level_transition.gif](images%2Ftop_level_transition.gif)
+
+#### Enter and exit
+
+This pattern is used to introduce or remove a component on the screen. Components can enter and exit **within the screen
+bounds**, like a dialog appearing over an app. They can also enter and exit by **crossing the screen bounds**, like a
+navigation drawer or bottom sheet that slides on and off screen.
+
+**Within screen bounds**
+
+Android components expand and collapse along the x or y axis as they enter and exit. Scale and z-axis motion is avoided
+since they imply elevation change, which doesn't match M3's reduced elevation model.
+
+Commonly used with: **FABs**, **dialogs**, **menus**, **snackbars**, **time pickers** and **tooltips**
+
+![enter_and_exit_within_screen_bounds.gif](images%2Fenter_and_exit_within_screen_bounds.gif)
+
+**Beyond screen bounds**
+
+Android components expand and collapse along the x or y axis as they slide on and off screen. This emphasizes their
+shape, making an otherwise simple transition more expressive.
+
+Commonly used with: **App bars**, **banners**, **navigation bar**, **navigation rail**, **navigation drawer** and
+**sheets**
+
+**Note:** Don't use this pattern for navigating hierarchical screens. Sliding content the full height of the screen is
+excessive and it creates an unclear relationship between screens.
+
+![enter_and_exit_beyond_screen_bounds.gif](images%2Fenter_and_exit_beyond_screen_bounds.gif)
+
+#### Skeleton loaders
+
+This pattern is used to transition from a temporary loading state to a fully loaded UI. Skeleton loaders are UI
+abstractions that hint at where content will appear once it's loaded. They're used in combination with other transitions
+to reduce perceived latency and stabilize layouts as content loads. They have a subtle pulsing animation to
+indicate indeterminate progress. Once content is loaded, it quickly fades in on top of the skeleton loader.
+
+![skeleton_transition.gif](images%2Fskeleton_transition.gif)
+
+**For more details about transition patterns
+check [this link](https://m3.material.io/styles/motion/transitions/transition-patterns).**
