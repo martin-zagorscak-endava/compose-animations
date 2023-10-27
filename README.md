@@ -3,22 +3,24 @@
 <h2>Table of contents</h2>
 
 <!-- TOC -->
-  * [Motivation](#motivation)
-  * [Compose animations cheat sheet](#compose-animations-cheat-sheet)
-  * [NavHost transitions between screens](#navhost-transitions-between-screens)
-  * [MotionLayout](#motionlayout)
-  * [Shared elements transition](#shared-elements-transition)
-  * [Guidelines](#guidelines)
+
+* [Motivation](#motivation)
+* [Compose animations cheat sheet](#compose-animations-cheat-sheet)
+* [NavHost transitions between screens](#navhost-transitions-between-screens)
+* [MotionLayout](#motionlayout)
+* [Shared elements transition](#shared-elements-transition)
+* [Guidelines](#guidelines)
     * [Duration](#duration)
     * [Easing](#easing)
     * [What makes a good transition?](#what-makes-a-good-transition)
     * [Transition patterns](#transition-patterns)
-      * [Container transform](#container-transform)
-      * [Forward and backward](#forward-and-backward)
-      * [Lateral](#lateral)
-      * [Top level](#top-level)
-      * [Enter and exit](#enter-and-exit)
-      * [Skeleton loaders](#skeleton-loaders)
+        * [Container transform](#container-transform)
+        * [Forward and backward](#forward-and-backward)
+        * [Lateral](#lateral)
+        * [Top level](#top-level)
+        * [Enter and exit](#enter-and-exit)
+        * [Skeleton loaders](#skeleton-loaders)
+
 <!-- TOC -->
 
 ## Motivation
@@ -321,7 +323,7 @@ The last thing to do is to define the transition inside motion scene file:
 }
 ```
 
-For more details of ConstraintLayout and MotionLayout, [click here]("https://github.com/androidx/constraintlayout/wiki).
+For more details of ConstraintLayout and MotionLayout, [click here](https://github.com/androidx/constraintlayout/wiki).
 
 ## Shared elements transition
 
