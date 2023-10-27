@@ -6,7 +6,7 @@
   * [Motivation](#motivation)
   * [Compose animations cheat sheet](#compose-animations-cheat-sheet)
   * [NavHost transitions between screens](#navhost-transitions-between-screens)
-  * [Motion layout](#motion-layout)
+  * [MotionLayout](#motionlayout)
   * [Shared elements transition](#shared-elements-transition)
   * [Guidelines](#guidelines)
     * [Duration](#duration)
@@ -126,7 +126,202 @@ NavHost(
 }
 ```
 
-## Motion layout
+## MotionLayout
+
+**MotionLayout** allows you to animate the motion of views between different states, creating dynamic and engaging
+experiences for the user. MotionLayout is built on top of Jetpack Composes ConstraintLayout, which gives you a flexible
+and expressive way to lay out your views. MotionLayout adds to this by allowing you to define transitions between
+different ConstraintLayout states. These transitions can be triggered by user interaction, such as a button click or
+scroll gesture.
+
+Before getting into the implementation of MotionLayout in Compose, lets explain some common MotionLayout terminology:
+
+- **MotionLayout** - A MotionLayout API for the old View framework
+- **MotionCompose** - A MotionLayout API for Jetpack Compose
+- **MotionScene** - A file that defines the various `ConstraintSets`, `Transitions` and `Keyframes` for a MotionLayout
+  animation
+- **ConstraintSet** - A set of constraints that define the initial and final layout states, along with any intermediate
+  states, for a MotionLayout
+- **Transition** - The animation sequence that occurs between two or more Constraint Sets in a MotionLayout
+- **Keyframe** - Allows modifying points between the transitions by frames
+- **KeyAttribute** - A property of a view that can be animated during a MotionLayout transition, such as its position,
+  size or alpha value
+
+Implementation steps will be explained for a simple example in which button click will trigger the movement of a circle
+from start of the screen to the end of it:
+
+![motion_layout_example.gif](images%2Fmotion_layout_example.gif)
+
+Firstly, to work with MotionLayout in Jetpack Compose, dependency for constraint layout for Compose is needed:
+`implementation("androidx.constraintlayout:constraintlayout-compose:$versionCode")`. After that you can start composing
+your apps UI with the `MotionLayout` function, to which you need to pass `motionScene` (set of constraint rules which UI
+elements will follow through transitions), `progress` (float type indicator - value which variates between `0f`
+and `1f`) and `content` (composables which will transition from one state to another). To create a motion scene and
+define the constraints, create a `.json` file placed as `res/raw/motion_scene.json5`. To start writing the necessary
+constraints we need to
+follow [this pattern](https://github.com/androidx/constraintlayout/wiki/Compose-MotionLayout-JSON-Syntax):
+
+``` json
+{
+  Header:{}
+  Design:{}
+  Variables:{}
+  ConstraintSets:{}
+  Transitions: {
+       // Transition Named default (special name)
+      default:{
+          KeyFrames:{
+              KeyPositions: {}
+              KeyAttributes: {}
+              KeyCycles: {}
+          }
+      }
+  }
+}
+```
+
+For this simple example, only the `ConstraintSets` and `Transitions` properties will be defined.
+
+After creating the motion scene .json file (which is empty for now), implement the `MotionLayout` function inside your
+screen composable, for this simple example it will look like this:
+
+``` kotlin
+@Composable
+fun Screen(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    // loading the motion scene file
+    val motionScene = remember {
+        context.resources
+            .openRawResource(R.raw.motion_scene_screen_b)
+            .readBytes()
+            .decodeToString()
+    }
+    
+    var isClicked by rememberSaveable { mutableStateOf(false) }
+    // progress smoothly changes by changing the isClicked state ie. clicking on the button
+    val progress by animateFloatAsState(targetValue = if (isClicked) 1f else 0f, animationSpec = tween(2000))
+    
+    MotionLayout(
+        motionScene = MotionScene(content = motionScene),
+        progress = progress,
+        modifier = modifier.fillMaxSize()
+    ) {
+        Box(
+            modifier = Modifier
+                .size(48.dp)
+                .clip(CircleShape)
+                .background(Color.Red)
+                // set the layoutId so you can reach it in motion_scene.json5
+                .layoutId("circle")
+        )
+        OutlinedButton(
+            // changes the state of the motion layout
+            onClick = { isClicked = !isClicked },
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White, contentColor = Color.Red),
+            border = BorderStroke(2.dp, Color.Red),
+            modifier = Modifier.layoutId("button")
+        ) {
+            Text(text = "Move the Circle")
+        }
+    }
+}
+```
+
+**Note: MotionLayout in ConstraintLayout-Compose 1.0.0 only supports JSON syntax while in ConstraintLayout-Compose 1.1.0
+supports DSL & JSON syntax. There are different signatures of the `MotionLayout` function, so you can also write the
+motion scene constraint sets in Kotlin, setting the MotionScene parameters `start` and `end`. But, the best practice
+would be separate the motion scene in another file as mentioned earlier, because the content can easily grow and it may
+become harder to read and to maintain.**
+
+Now that we set up the composable part, lets define the constraints for the `circle` and the `button` as we defined the
+layout ids in Compose:
+
+``` json
+{
+  ConstraintSets:{
+    start: {
+      // layoutIds we defined in the composables modifiers
+      circle: {
+        top: ['parent', 'top', 0],
+        bottom: ['parent', 'bottom', 0],
+        start: ['parent', 'start', 8],
+        // custom properties which can be named arbitrarily
+        custom: {
+          background_color: "#FF0000"
+        }
+      },
+      button: {
+        top: ['circle', 'bottom', 36],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      }
+    },
+    end: {
+      circle: {
+        top: ['parent', 'top', 0],
+        bottom: ['parent', 'bottom', 0],
+        end: ['parent', 'end', 8],
+        custom: {
+          background_color: "#0000FF"
+        }
+      },
+      button: {
+        top: ['circle', 'bottom', 36],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      }
+    }
+  }
+}
+```
+
+As you have seen at the code snippet above, you can define custom properties which will differ for the start and the
+final state. To use `background_color` custom property in Compose, reach for it inside `MotionLayoutScope` (block
+where the composables are defined) like this:
+
+``` kotlin
+val circleProperties = customProperties("circle")
+val circleBackgroundColor = circleProperties.color("background_color")
+```
+
+And replace the hardcoded colors with `circleBackgroundColor` (defined in the motion scene file) where you want to apply
+it.
+
+**Note: Beside colors, you can also define numerical values such as `Int`s, `Float`s, font sizes and distances in `Dp`s
+as a custom property.**
+
+The last thing to do is to define the transition inside motion scene file:
+
+``` json
+{
+  ConstraintSets: { // ... },
+  Transitions: {
+    default: {
+      from: 'start',
+      to: 'end',
+      // used for modifying points between the transitions
+      KeyFrames: {
+        KeyAttributes: [
+          {
+            // the target array can hold mutiple ids
+            target: ['circle'],
+            // frames in percentages
+            frames: [0, 50, 100],
+            // for each frame there needs to be a value for the wanted property
+            // these values are applied while transitioning from one transition state to another
+            translationY: [0, -100, 0],
+            custom: {
+              background_color: ["#FF0000", "#00FF00", "#0000FF"]
+            }
+          }
+        ],
+      }
+    }
+  }
+}
+```
+
+For more details of ConstraintLayout and MotionLayout, [click here]("https://github.com/androidx/constraintlayout/wiki).
 
 ## Shared elements transition
 
