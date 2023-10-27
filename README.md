@@ -161,7 +161,7 @@ define the constraints, create a `.json` file placed as `res/raw/motion_scene.js
 constraints we need to
 follow [this pattern](https://github.com/androidx/constraintlayout/wiki/Compose-MotionLayout-JSON-Syntax):
 
-``` json
+```
 {
   Header:{}
   Design:{}
@@ -236,7 +236,7 @@ become harder to read and to maintain.**
 Now that we set up the composable part, lets define the constraints for the `circle` and the `button` as we defined the
 layout ids in Compose:
 
-``` json
+```
 {
   ConstraintSets:{
     start: {
@@ -292,7 +292,7 @@ as a custom property.**
 
 The last thing to do is to define the transition inside motion scene file:
 
-``` json
+```
 {
   ConstraintSets: { // ... },
   Transitions: {
