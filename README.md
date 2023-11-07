@@ -327,12 +327,13 @@ For more details of ConstraintLayout and MotionLayout, [click here](https://gith
 
 ## Shared elements transition
 
-![shared-elements-transition-demo.gif](images%2Fshared-elements-transition-demo.gif)
-![shared-elements-transition-demo1.gif](images%2Fshared-elements-transition-demo1.gif)
+![shared_elements_transition_demo.gif](images%2Fshared_elements_transition_demo.gif)
+![shared_elements_transition_demo1.gif](images%2Fshared_elements_transition_demo1.gif)
+![shared_elements_transition_demo2.gif](images%2Fshared_elements_transition_demo2.gif)
 
 `TODO: Shared element transitions are currently in development`
 
-For now, you can use [this](https://github.com/mxalbert1996/compose-shared-elements) library.
+For now, you can use [this](https://github.com/skydoves/Orbital) library.
 
 ## Guidelines
 
