@@ -327,6 +327,8 @@ For more details of ConstraintLayout and MotionLayout, [click here](https://gith
 
 ## Shared elements transition
 
+![shared_elements_transition_demo.gif](images%2Fshared_elements_transition_demo.gif)
+![shared_elements_transition_demo1.gif](images%2Fshared_elements_transition_demo1.gif)
 ![shared_elements_transition_demo2.gif](images%2Fshared_elements_transition_demo2.gif)
 
 `TODO: Shared element transitions are currently in development`
