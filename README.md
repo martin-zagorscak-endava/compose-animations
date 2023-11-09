@@ -39,6 +39,13 @@ animations in your project.
 
 **More on: https://developer.android.com/jetpack/compose/animation/introduction**
 
+## Compose animation decision tree
+
+Don't know what animation API to use for your animation implementation? Here with this decision tree you can choose the
+corresponding API. 
+
+![compose_animation_decision_tree.jpeg](images%2Fcompose_animation_decision_tree.jpeg)
+
 ## NavHost transitions between screens
 
 To set transitions for all navigation destinations inside `NavHost` define `enterTransition` and `exitTransition`. By
