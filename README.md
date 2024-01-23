@@ -370,7 +370,7 @@ the distance to travel is shorter.
 **Do:** A transition with a well tuned duration is quick and easy to follow <br>
 ![example_smooth_transition.gif](images%2Fexample_smooth_transition.gif)
 
-**Don't:** A transition with a well tuned duration is quick and easy to follow <br>
+**Don't:** Avoid transitions with such a short duration they become jarring <br>
 ![example_too_fast_transition.gif](images%2Fexample_too_fast_transition.gif)
 
 **Durations are chosen based on these criteria:**
